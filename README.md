@@ -3,7 +3,7 @@
 Sistema de backend hecho en Java Spring Boot para gestionar inventario, ventas, facturación e instalaciones.
 
 ## Tecnologías
-- Java 17
+- Java 21
 - Spring Boot 3.5
 - MySQL
 - JPA / Hibernate
