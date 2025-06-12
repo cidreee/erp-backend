@@ -15,5 +15,3 @@ Sistema de backend hecho en Java Spring Boot para gestionar inventario, ventas, 
 - (más adelante: `/sales`, `/inventory`, `/installations`...)
 
 ---
-
-¡Construido con ❤️ por Valeria Andrade!
