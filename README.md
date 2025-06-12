@@ -1,4 +1,4 @@
-# ERP Backend - Divanni
+# Mini-ERP Backend 
 
 Sistema de backend hecho en Java Spring Boot para gestionar inventario, ventas, facturación e instalaciones.
 
