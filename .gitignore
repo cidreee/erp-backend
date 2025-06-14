@@ -1,33 +1,32 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Archivos de compilación
+/target/
+build/
+*.class
 
-### STS ###
-.apt_generated
+# Configuración de editores
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
 .classpath
 .factorypath
 .project
 .settings
-.springBeans
+.apt_generated
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# Archivos sensibles
+src/main/resources/application.properties
+.env
+*.log
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
+# Archivos basura del sistema
+.DS_Store
+Thumbs.db
+
+# Excepciones opcionales
 !**/src/main/**/build/
 !**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+!**/src/main/**/target/
+!**/src/test/**/target/
