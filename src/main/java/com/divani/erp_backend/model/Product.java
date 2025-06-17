@@ -1,42 +1,51 @@
 package com.divani.erp_backend.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "product")
-
-public class Product{
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Integer productId;
 
-    @Column(name = "inventory_item_id")
-    private Long inventoryItemId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "inventory_item_id")
+    private InventoryItem inventoryItem;
 
+    @Column(nullable = false)
     private String name;
+
     private String description;
-    private BigDecimal price;
-    private BigDecimal discount;
-    private BigDecimal iva;
-    private Boolean isActive;
 
+    @Column(nullable = false)
+    private Double price;
 
-    public Long getProductId() {
+    private Double discount = 0.0;
+    private Double iva = 16.0;
+    private Boolean isActive = true;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    // ======= GETTERS & SETTERS =======
+
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public Long getInventoryItemId() {
-        return inventoryItemId;
+    public InventoryItem getInventoryItem() {
+        return inventoryItem;
     }
 
-    public void setInventoryItemId(Long inventoryItemId) {
-        this.inventoryItemId = inventoryItemId;
+    public void setInventoryItem(InventoryItem inventoryItem) {
+        this.inventoryItem = inventoryItem;
     }
 
     public String getName() {
@@ -55,27 +64,27 @@ public class Product{
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public BigDecimal getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
-    public BigDecimal getIva() {
+    public Double getIva() {
         return iva;
     }
 
-    public void setIva(BigDecimal iva) {
+    public void setIva(Double iva) {
         this.iva = iva;
     }
 
@@ -87,4 +96,19 @@ public class Product{
         this.isActive = isActive;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
