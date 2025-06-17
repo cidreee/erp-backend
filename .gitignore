@@ -1,14 +1,18 @@
-# Archivos de compilación
+# ====================
+# Archivos compilados y de build
+# ====================
 /target/
 build/
 *.class
 
-# Configuración de editores
+# ====================
+#  Archivos de configuración de IDE
+# ====================
 .idea/
 .vscode/
 *.iml
-*.ipr
 *.iws
+*.ipr
 .classpath
 .factorypath
 .project
@@ -16,16 +20,21 @@ build/
 .apt_generated
 .sts4-cache
 
-# Archivos sensibles
+# ====================
+#  Archivos sensibles y de configuración privada
+# ====================
 src/main/resources/application.properties
 .env
 *.log
 
-# Archivos basura del sistema
+# ====================
+#  Archivos de sistema
+# ====================
 .DS_Store
 Thumbs.db
 
-# Excepciones opcionales
+# ====================
+#  Excepciones si aplican (opcional)
 !**/src/main/**/build/
 !**/src/test/**/build/
 !**/src/main/**/target/
