@@ -5,8 +5,8 @@ public class ProductRegistrationDTO {
     public String brandName;
     public String modelName;
     public String modelDescription;
-    public Integer categoryId;
-    public Integer subcategoryId;
+    public String categoryName;
+    public String subcategoryName;
     public String materialName;
     public String colorName;
     public Integer supplierId;

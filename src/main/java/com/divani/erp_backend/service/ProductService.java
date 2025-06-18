@@ -6,6 +6,9 @@ import com.divani.erp_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+
 @Service
 public class ProductService {
 
@@ -27,9 +30,33 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepo;
 
+    @Autowired
+    private InventoryCategoryRepository categoryRepo;
+
+    @Autowired
+    private InventorySubcategoryRepository subcategoryRepo;
+
+
+
     public void registerFullProduct(ProductRegistrationDTO dto) {
+        InventoryCategory category = categoryRepo.findByNameIgnoreCase(dto.categoryName)
+        .orElseGet(() -> {
+                InventoryCategory newCategory = new InventoryCategory();
+                newCategory.setName(dto.categoryName);
+                return categoryRepo.save(newCategory);
+        });
+
+        InventorySubcategory subcategory = subcategoryRepo
+        .findByNameIgnoreCaseAndCategory(dto.subcategoryName, category)
+        .orElseGet(() -> {
+            InventorySubcategory sc = new InventorySubcategory();
+            sc.setName(dto.subcategoryName);
+            sc.setCategory(category);
+            return subcategoryRepo.save(sc);
+        });
+
         // 1. Crear o reutilizar marca
-        Brand brand = brandRepo.findByName(dto.brandName)
+        Brand brand = brandRepo.findByNameIgnoreCase(dto.brandName)
                 .orElseGet(() -> brandRepo.save(new Brand(dto.brandName)));
 
         // 2. Crear o reutilizar modelo
@@ -43,18 +70,33 @@ public class ProductService {
                 });
 
         // 3. Crear o reutilizar material
-        Material material = materialRepo.findByName(dto.materialName)
+        Material material = materialRepo.findByNameIgnoreCase(dto.materialName)
                 .orElseGet(() -> materialRepo.save(new Material(dto.materialName)));
 
         // 4. Crear o reutilizar color
-        Color color = colorRepo.findByName(dto.colorName)
+        Color color = colorRepo.findByNameIgnoreCase(dto.colorName)
                 .orElseGet(() -> colorRepo.save(new Color(dto.colorName)));
 
-        // 5. Crear InventoryItem
+        // 5. Validar si ya existe un InventoryItem con la misma combinación
+        Optional<InventoryItem> existingItem = itemRepo
+        .findByCategoryAndSubcategoryAndBrandAndModelAndColorAndMaterial(
+                category,
+                subcategory,
+                brand,
+                model,
+                color,
+                material
+        );
+
+        if (existingItem.isPresent()) {
+                throw new IllegalArgumentException("Este producto ya existe en el inventario.");
+        }
+
+        // 6. Crear InventoryItem
         InventoryItem item = new InventoryItem();
         item.setName(dto.itemName);
-        item.setCategoryId(dto.categoryId);
-        item.setSubcategoryId(dto.subcategoryId);
+        item.setCategory(category);
+        item.setSubcategory(subcategory);
         item.setSupplierId(dto.supplierId);
         item.setUnitId(dto.unitId);
         item.setBrand(brand);
@@ -66,7 +108,7 @@ public class ProductService {
         item.setUnitCost(dto.unitCost);
         item = itemRepo.save(item);
 
-        // 6. Crear Product
+        // 7. Crear Product
         Product product = new Product();
         product.setInventoryItem(item);
         product.setName(dto.productName);
@@ -76,4 +118,5 @@ public class ProductService {
         product.setIva(dto.iva);
         productRepo.save(product);
     }
+
 }

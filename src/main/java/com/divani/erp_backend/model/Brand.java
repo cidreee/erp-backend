@@ -10,7 +10,7 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer brandId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name="name", nullable = false, unique = true)
     private String name;
 
     private Boolean isActive = true;

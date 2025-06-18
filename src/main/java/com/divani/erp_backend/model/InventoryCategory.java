@@ -1,29 +1,30 @@
 package com.divani.erp_backend.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
+
 @Entity
-public class Color {
+public class InventoryCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer colorId;
+    private Integer categoryId;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
+
+    private Boolean isActive = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Color() {}
-    public Color(String name) { this.name = name; }
+    // Getters y Setters
 
-    // Getters y setters...
-    public Integer getColorId() {
-    return colorId;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setColorId(Integer colorId) {
-        this.colorId = colorId;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -34,6 +35,14 @@ public class Color {
         this.name = name;
     }
 
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -41,5 +50,4 @@ public class Color {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 }

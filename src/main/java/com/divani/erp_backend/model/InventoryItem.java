@@ -11,10 +11,16 @@ public class InventoryItem {
 
     private String name;
 
-    private Integer categoryId;
-    private Integer subcategoryId;
     private Integer supplierId;
     private Integer unitId;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private InventoryCategory category;
+    
+    @ManyToOne
+    @JoinColumn(name = "subcategory_id")
+    private InventorySubcategory subcategory;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
@@ -57,20 +63,20 @@ public class InventoryItem {
         this.name = name;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public InventoryCategory getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(InventoryCategory category) {
+        this.category = category;
     }
 
-    public Integer getSubcategoryId() {
-        return subcategoryId;
+    public InventorySubcategory getSubcategory() {
+        return subcategory;
     }
 
-    public void setSubcategoryId(Integer subcategoryId) {
-        this.subcategoryId = subcategoryId;
+    public void setSubcategory(InventorySubcategory subcategory) {
+        this.subcategory = subcategory;
     }
 
     public Integer getSupplierId() {
